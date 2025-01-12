@@ -1,0 +1,5 @@
+Warmup before the research paper, practice OOP & Modular Design, write a detailed README, have an organized codebase, clean code, etc., Relearn all ML
+paper: https://arxiv.org/abs/1512.03385
+videos: https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi
+medium guide: https://medium.com/@sirawitchokphantavee/build-a-neural-network-from-scratch-in-c-to-deeply-understand-how-it-works-not-just-how-to-use-008426212f57
+reference repo: https://github.com/lionelmessi6410/Neural-Networks-from-Scratch/blob/main/NN-from-Scratch.ipynb
