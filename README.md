@@ -1,5 +1,5 @@
 # Convolutional Neural Network (CNN) from Scratch  
-
+ 
 ## Overview  
 This repository contains an implementation of a convolutional neural network built entirely from scratch using Python and NumPy. The goal of this project is to gain a deep understanding of the inner workings of neural networks, including:  
 - Forward propagation  
