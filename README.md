@@ -14,9 +14,9 @@ The network will be trained and evaluated on the **CIFAR-10 dataset**, a widely 
 
 ## Features  
 - Manual implementation of key neural network components:
-  - Multiple layers (e.g. Dense, Convolutional, etc.)
-  - Non-linear activation functions (e.g., ReLU, Softmax)
-  - Loss functions (e.g., Cross-Entropy)
+  - Multiple layers 
+  - Non-linear activation functions 
+  - Loss functions
   - Gradient descent and backpropagation
 - Training and evaluation pipeline for the CIFAR-10 dataset
 - Visualization of learning metrics (e.g., loss and accuracy)
@@ -43,3 +43,14 @@ The network will be trained and evaluated on the **CIFAR-10 dataset**, a widely 
    git clone https://github.com/asherk7/neural-network-from-scratch.git
    cd neural-network-from-scratch
    ```
+
+---
+
+## Usage
+1. Make sure you have the required libraries above.
+2. Run the cifar script to train the model:  
+   ```bash
+   python cifar.py
+   ```
+3. The model will be trained on the CIFAR-10 dataset, and you can monitor the training process through the printed metrics.
+4. After training, the model's performance will be evaluated on the test set, and results will be displayed.

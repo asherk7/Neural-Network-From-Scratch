@@ -1,0 +1,7 @@
+.ipynb_*
+*.csv
+data
+*.DS_Store*
+.idea
+*__pycache__*
+venv
