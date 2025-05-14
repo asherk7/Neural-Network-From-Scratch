@@ -16,9 +16,6 @@ class Layer():
     def update(self, learning_rate):
         pass
 
-class Linear(Layer):
-    pass
-
 class Dense(Layer):
     pass
 
