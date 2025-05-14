@@ -54,3 +54,10 @@ The network will be trained and evaluated on the **CIFAR-10 dataset**, a widely 
    ```
 3. The model will be trained on the CIFAR-10 dataset, and you can monitor the training process through the printed metrics.
 4. After training, the model's performance will be evaluated on the test set, and results will be displayed.
+
+---
+
+## References
+- [Build a Neural Network from scratch in C++ to deeply understand how it works, not just how to use it](https://medium.com/@sirawitchokphantavee/build-a-neural-network-from-scratch-in-c-to-deeply-understand-how-it-works-not-just-how-to-use-008426212f57)
+- [Neural Networks from Scratch in Python](https://www.youtube.com/playlist?list=PLQVvvaa0QuDcjD5BAw2DxE6OF2tius3V3)
+- [CIFAR-10 Dataset](https://www.cs.toronto.edu/~kriz/cifar.html)

@@ -1,6 +1,6 @@
 import numpy as np
 
-class Activation():
+class Activation:
     """
     Base class for activation functions.
     
@@ -78,14 +78,6 @@ class ReLU(Activation):
         relu[relu <= 0] = 0
         return gradient * relu
 
-class LeakyReLU(Activation):
-    """
-    Leaky ReLU activation function.
-
-    This function allows a small, non-zero gradient when the input is negative.
-    """
-    pass
-
 class Tanh(Activation):
     """
     Tanh activation function.
@@ -99,10 +91,49 @@ class Tanh(Activation):
         tanh = (1 - np.tanh(self.x)**2)
         return gradient * tanh
 
+class LeakyReLU(Activation):
+    """
+    Leaky ReLU activation function.
+
+    This function allows a small, non-zero gradient when the input is negative.
+    """
+    def forward(self, x: np.ndarray) -> np.ndarray:
+        self.x = x # Store the input for backward pass
+        return np.where(x > 0, x, 0.01 * x) # returns x for positive values and 0.01 * x for negative values
+
+    def backward(self, gradient: np.ndarray) -> np.ndarray:
+        leaky_relu = np.where(self.x > 0, 1, 0.01)
+        return gradient * leaky_relu
+
 class Softmax(Activation):
     """
     Softmax activation function.
     This function converts the input into a probability distribution.
     """
-    pass
+    def forward(self, x: np.ndarray) -> np.ndarray:
+        exp_x = np.exp(x - np.max(x, axis=1, keepdims=True)) # Subtract by max for numerical stability on the exponent function
+        probabilities = exp_x / np.sum(exp_x, axis=1, keepdims=True)
+        self.output = probabilities
+        return probabilities
+        
+    def backward(self, y_true: np.ndarray) -> np.ndarray:
+        """
+        Backward pass through the softmax function.
+        
+        Often used as the last activation function in a neural network, hence why y_true is passed in.
+        """
+        gradient = self.output - y_true
+        return gradient
 
+        """
+        # Gradient of the softmax function using the Jacobian matrix
+        # The Jacobian matrix is a square matrix of partial derivatives
+        self.dinputs = np.empty_like(gradient)
+        for index, (single_output, single_dvalues) in enumerate(zip(self.output, gradient)):
+            # Flatten output array
+            single_output = single_output.reshape(-1, 1)
+            # Calculate Jacobian matrix of the output
+            jacobian_matrix = np.diagflat(single_output) - np.dot(single_output, single_output.T)
+            # Calculate sample-wise gradient and add it to the array of sample gradients
+            self.dinputs[index] = np.dot(jacobian_matrix,single_dvalues)
+        """
