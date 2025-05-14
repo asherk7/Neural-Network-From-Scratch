@@ -1,4 +1,4 @@
-class Optimizer():
+class Optimizer:
     pass
 
 class SGD():

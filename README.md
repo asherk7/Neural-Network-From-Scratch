@@ -1,14 +1,15 @@
 # Convolutional Neural Network (CNN) from Scratch  
  
 ## Overview  
-This repository contains an implementation of a convolutional neural network built entirely from scratch using Python and NumPy. The goal of this project is to gain a deep understanding of the inner workings of neural networks, including:  
+This repository contains an implementation of a convolutional neural network built entirely from scratch using Python and NumPy, modeled after ResNet. The goal of this project is to gain a deep understanding of the inner workings of neural networks, including:  
 - Forward propagation  
 - Backward propagation  
 - Activation functions  
 - Loss functions  
-- Optimization techniques  
+- Optimization techniques
+- Residual connections
 
-The network will be trained and evaluated on the **CIFAR-10 dataset**, a widely used benchmark for image classification tasks.  
+The network will be trained and evaluated on the **CIFAR-10 dataset**, a widely used benchmark for image classification tasks. The model that is being constructed is a simplified version of the ResNet architecture, which is known for its effectiveness in image recognition tasks.  
 
 ---
 
@@ -18,8 +19,8 @@ The network will be trained and evaluated on the **CIFAR-10 dataset**, a widely 
   - Non-linear activation functions 
   - Loss functions
   - Gradient descent and backpropagation
+  - Residual connections
 - Training and evaluation pipeline for the CIFAR-10 dataset
-- Visualization of learning metrics (e.g., loss and accuracy)
 
 ---
 
@@ -33,7 +34,7 @@ The network will be trained and evaluated on the **CIFAR-10 dataset**, a widely 
 ## Prerequisites  
 - **Python 3.8+**
 - **NumPy 2.2.1**
-- Basic knowledge of linear algebra, calculus, and programming.  
+- Basic knowledge of linear algebra, calculus (derivatives & multi-variable), and programming.  
 
 ---
 
@@ -58,6 +59,7 @@ The network will be trained and evaluated on the **CIFAR-10 dataset**, a widely 
 ---
 
 ## References
+- [Deep Residual Learning for Image Recognition](https://arxiv.org/abs/1512.03385)
 - [Build a Neural Network from scratch in C++ to deeply understand how it works, not just how to use it](https://medium.com/@sirawitchokphantavee/build-a-neural-network-from-scratch-in-c-to-deeply-understand-how-it-works-not-just-how-to-use-008426212f57)
 - [Neural Networks from Scratch in Python](https://www.youtube.com/playlist?list=PLQVvvaa0QuDcjD5BAw2DxE6OF2tius3V3)
 - [CIFAR-10 Dataset](https://www.cs.toronto.edu/~kriz/cifar.html)
