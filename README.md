@@ -1,7 +1,8 @@
 # Convolutional Neural Network (CNN) from Scratch  
- 
+Creating a Convolutional Neural Network (CNN) from scratch using Python and NumPy, modeled after the ResNet architecture from the paper ["Deep Residual Learning for Image Recognition"](https://arxiv.org/abs/1512.03385).  
+
 ## Overview  
-This repository contains an implementation of a convolutional neural network built entirely from scratch using Python and NumPy, modeled after ResNet. The goal of this project is to gain a deep understanding of the inner workings of neural networks, including:  
+This repository contains an implementation of a convolutional neural network and the popular components, built entirely from scratch using Python and NumPy, modeled after ResNet. The goal of this project is to gain a deep understanding of the inner workings of neural networks, including:  
 - Forward propagation  
 - Backward propagation  
 - Activation functions  
@@ -9,7 +10,7 @@ This repository contains an implementation of a convolutional neural network bui
 - Optimization techniques
 - Residual connections
 
-The network will be trained and evaluated on the **CIFAR-10 dataset**, a widely used benchmark for image classification tasks. The model that is being constructed is a simplified version of the ResNet architecture, which is known for its effectiveness in image recognition tasks.  
+The network will be trained and evaluated on the **CIFAR-10 dataset**, a widely used benchmark for image classification tasks.  
 
 ---
 

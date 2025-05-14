@@ -8,7 +8,7 @@ class Loss:
         """
         Forward pass through the loss function.
         Args:
-            y_true (np.ndarray): True labels.
+            y_true (np.ndarray): True labels, often one-hot encoded for classification tasks.
             y_pred (np.ndarray): Predicted labels.
         Returns:
             float: Loss value.
@@ -19,7 +19,7 @@ class Loss:
         """
         Backward pass through the loss function.
         Args:
-            y_true (np.ndarray): True labels.
+            y_true (np.ndarray): True labels, often one-hot encoded for classification tasks.
             y_pred (np.ndarray): Predicted labels. (Note: this is a variable, not a constant when doing the derivative for backpropagation)
         Returns:
             np.ndarray: Gradient of the loss with respect to the predictions.
