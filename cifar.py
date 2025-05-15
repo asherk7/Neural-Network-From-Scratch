@@ -1,3 +1,7 @@
+from sklearn.model_selection import train_test_split
+import numpy as np
+import pickle
+
 from neural_network.layers.conv2d import Conv2D
 from neural_network.layers.dense import Dense
 from neural_network.layers.globalavgpool2d import GlobalAvgPool2D
@@ -6,23 +10,20 @@ from neural_network.activation import ReLU
 from neural_network.model import Model
 from neural_network.loss import CategoricalCrossEntropy
 from neural_network.optimizer import Adam
-import numpy as np
-import pickle
 
 def create_model():
-    relu = ReLU()
     downsample = Conv2D(in_channels=16, out_channels=32, kernel_size=1, stride=2, padding=0) 
 
     layers = [
         Conv2D(3, 16, kernel_size=3, stride=1, padding=1),
-        relu,
-        ResidualBlock(16, 16, stride=1, activation=relu),
-        ResidualBlock(16, 32, stride=2, activation=relu, downsample=downsample),
+        ReLU(),
+        ResidualBlock(16, 16, stride=1, activation=ReLU()),
+        ResidualBlock(16, 32, stride=2, activation=ReLU(), downsample=downsample),
         GlobalAvgPool2D(),
         Dense(32, 10), 
     ]
 
-    model = Model(layers=layers, loss=CategoricalCrossEntropy(), optimizer=Adam(lr=0.001))
+    model = Model(layers=layers, loss=CategoricalCrossEntropy(), optimizer=Adam())
     return model
 
 def train_model(model, x_train, y_train, x_val, y_val, epochs=10, batch_size=32):
@@ -48,6 +49,8 @@ def train_model(model, x_train, y_train, x_val, y_val, epochs=10, batch_size=32)
         val_loss = model.evaluate(x_val, y_val)
         print(f"Epoch {epoch + 1}/{epochs}, Validation Loss: {val_loss:.4f}")
 
+    return model
+
 def load_batch(filename):
     """
     Load a single batch of CIFAR-10 data.
@@ -70,12 +73,12 @@ def load_cifar10(data_dir):
         data_list.append(data_batch)
         labels_list.append(labels_batch)
     
-    X_train = np.concatenate(data_list)
-    y_train = np.concatenate(labels_list)
+    X = np.concatenate(data_list)
+    y = np.concatenate(labels_list)
     
     X_test, y_test = load_batch(f'{data_dir}/test_batch')
     
-    return X_train, y_train, X_test, y_test
+    return X, y, X_test, y_test
 
 def preprocess(X):
     X = X.reshape(-1, 3, 32, 32).astype(np.float32) / 255.0
@@ -86,36 +89,27 @@ def one_hot_encode(labels, num_classes=10):
     encoded[np.arange(len(labels)), labels] = 1
     return encoded
 
+def predict(model, x):
+    return np.argmax(model.forward(x), axis=1)
+
 def main():
     model = create_model()
     data_dir = './data'
 
-    X_train, y_train, X_test, y_test = load_cifar10(data_dir)
+    X, y, X_test, y_test = load_cifar10(data_dir)
 
-    X_train = preprocess(X_train)
+    X = preprocess(X)
     X_test = preprocess(X_test)
 
-    y_train_oh = one_hot_encode(y_train)
-    y_test_oh = one_hot_encode(y_test)
+    y_ohe = one_hot_encode(y)
+
+    X_train, X_val, y_train_ohe, y_val_ohe = train_test_split(X, y_ohe, test_size=0.2, random_state=42)
     
-    #train_model(model, X_train, y_train_oh, X_test, y_test_oh, epochs=10, batch_size=32)
-    
-    X_test_sample = X_test[:8]  # 8 images
-    y_test_sample = y_test_oh[:8]  # corresponding one-hot labels
+    model = train_model(model, X_train, y_train_ohe, X_val, y_val_ohe, epochs=10, batch_size=32)
 
-    # Forward pass
-    logits = model.forward(X_test_sample)
-
-    # Calculate loss
-    test_loss = model.loss.forward(logits, y_test_sample)
-    print(f'Test Loss: {test_loss}')
-
-    # Calculate accuracy (simple)
-    pred_classes = np.argmax(logits, axis=1)
-    true_classes = np.argmax(y_test_sample, axis=1)
-    accuracy = np.mean(pred_classes == true_classes)
-    print(f'Test Accuracy: {accuracy * 100:.2f}%')
-
+    y_pred = predict(model, X_test)
+    accuracy = np.mean(y_pred == y_test)
+    print(f"Test Accuracy: {accuracy:.4f}")
 
 if __name__ == "__main__":
     main()

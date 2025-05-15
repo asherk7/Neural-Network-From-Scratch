@@ -1,6 +1,6 @@
 import numpy as np
 
-from neural_network.layers import Layer
+from neural_network.layers.layer import Layer
 
 class GlobalAvgPool2D(Layer):
     """

@@ -1,26 +1,26 @@
 import numpy as np
 
-import neural_network.layers.layer as Layer
+from neural_network.layers.layer import Layer
 
 class Conv2D(Layer):
     """
     A basic 2D convolutional layer
     Applies a filter (kernel) to the input tensor, to extract features from the input data.
 
+    Args:
+    in_channels (int): Number of channels in the input image
+    out_channels (int): Number of filters (output channels)
+    kernel_size (int or tuple): Size of the convolutional kernel (e.g., 3 or (3, 3))
+    stride (int): Stride of the convolution (default: 1)
+    padding (int): Amount of zero-padding around input (default: 0)
+
+    Methods:
     Forward pass:
         - Pads the input (if needed)
         - Slides the filter(s) across the input with specified stride
         - Computes dot products between filters and local regions of the input
-
     Backward pass:
         - Computes gradients with respect to weights, biases, and inpute
-
-    Parameters:
-        in_channels (int): Number of channels in the input image
-        out_channels (int): Number of filters (output channels)
-        kernel_size (int or tuple): Size of the convolutional kernel (e.g., 3 or (3, 3))
-        stride (int): Stride of the convolution (default: 1)
-        padding (int): Amount of zero-padding around input (default: 0)
 
     Attributes:
         weights (ndarray): Learnable filters of shape (out_channels, in_channels, kernel_height, kernel_width)

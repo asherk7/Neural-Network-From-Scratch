@@ -1,6 +1,4 @@
-import numpy as np
-
-from neural_network.layers import Layer
+from neural_network.layers.layer import Layer
 from neural_network.layers.conv2d import Conv2D
 
 class ResidualBlock(Layer):
@@ -25,14 +23,13 @@ class ResidualBlock(Layer):
 
     def backward(self, gradient):
         gradient = self.activation.backward(gradient)
-
-        d_identity = gradient.copy()
+        gradient_skip = gradient.copy()
 
         gradient = self.conv2.backward(gradient)
         gradient = self.activation.backward(gradient)
         gradient = self.conv1.backward(gradient)
 
         if self.downsample:
-            d_identity = self.downsample.backward(d_identity)
+            gradient_skip = self.downsample.backward(gradient_skip)
 
-        return gradient + d_identity
+        return gradient + gradient_skip

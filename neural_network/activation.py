@@ -73,7 +73,7 @@ class ReLU(Activation):
         return np.maximum(0, x)
 
     def backward(self, gradient: np.ndarray) -> np.ndarray:
-        relu = self.x
+        relu = self.x.copy()
         relu[relu > 0] = 1
         relu[relu <= 0] = 0
         return gradient * relu

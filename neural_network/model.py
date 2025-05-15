@@ -9,17 +9,17 @@ class Model:
             x = layer.forward(x)
         return x
 
-    def backward(self, dout):
+    def backward(self, gradient):
         for layer in reversed(self.layers):
-            dout = layer.backward(dout)
-        return dout
+            gradient = layer.backward(gradient)
+        return gradient
 
     def update(self):
         for layer in self.layers:
             if hasattr(layer, 'weights'):
-                self.optimizer.update_weights(layer, layer.dweights)
+                self.optimizer.update_weights(layer, layer.gradient_weights) 
             if hasattr(layer, 'biases'):
-                self.optimizer.update_biases(layer, layer.dbiases)
+                self.optimizer.update_biases(layer, layer.gradient_biases)
 
     def train_batch(self, x_batch, y_batch):
         # Forward pass
