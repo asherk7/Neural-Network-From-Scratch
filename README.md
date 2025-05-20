@@ -50,12 +50,13 @@ The network will be trained and evaluated on the **CIFAR-10 dataset**, a widely 
 
 ## Usage
 1. Make sure you have the required libraries above.
-2. Run the cifar script to train the model:  
+2. Download the CIFAR-10 dataset, rename it to `data`, and place it in the same directory as the script. The dataset can be downloaded from [here](https://www.cs.toronto.edu/~kriz/cifar.html).
+3. Run the cifar script to train the model:  
    ```bash
    python cifar.py
    ```
-3. The model will be trained on the CIFAR-10 dataset, and you can monitor the training process through the printed metrics.
-4. After training, the model's performance will be evaluated on the test set, and results will be displayed.
+4. The model will be trained on the CIFAR-10 dataset, and you can monitor the training process through the printed metrics.
+5. After training, the model's performance will be evaluated on the test set, and results will be displayed.
 
 ---
 

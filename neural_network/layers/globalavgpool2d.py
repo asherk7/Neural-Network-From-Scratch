@@ -4,27 +4,39 @@ from neural_network.layers.layer import Layer
 
 class GlobalAvgPool2D(Layer):
     """
-    global average pooling layer for 2D convolutional outputs.
+    Global Average Pooling 2D layer.
 
-    Reduces each channel of the input feature map to a single value by averaging over
-    all spatial locations (height and width). 
-
-    Forward pass:
-        - Averages each channel across spatial dimensions (H, W)
-
-    Backward pass:
-        - Distributes the upstream gradient equally across all spatial locations per channel
-
-    Input shape: (batch_size, channels, height, width)
-    Output shape: (batch_size, channels)
+    This layer performs spatial average pooling over each channel of the input,
+    reducing the spatial dimensions (H, W) to a single value per channel.
     """
-    def forward(self, x):
+
+    def forward(self, x: np.ndarray) -> np.ndarray:
+        """
+        Performs the forward pass for global average pooling.
+
+        Args:
+            x (np.ndarray): Input tensor of shape (N, C, H, W) where
+                            N = batch size, C = channels, H = height, W = width.
+
+        Returns:
+            np.ndarray: Output tensor of shape (N, C), where each channel is 
+                        averaged over the spatial dimensions.
+        """
         self.input_shape = x.shape
         return np.mean(x, axis=(2, 3), keepdims=False)
 
-    def backward(self, gradient):
+    def backward(self, gradient: np.ndarray) -> np.ndarray:
+        """
+        Computes the gradient of the loss with respect to the input.
+
+        Args:
+            gradient (np.ndarray): Upstream gradient of shape (N, C).
+
+        Returns:
+            np.ndarray: Gradient with respect to the input, shape (N, C, H, W).
+        """
         N, C = gradient.shape
         _, _, H, W = self.input_shape
-
-        dx = gradient[:, :, None, None] * np.ones((N, C, H, W)) / (H * W)
+        # Distribute the gradient equally across spatial dimensions
+        dx = gradient[:, :, None, None] * np.ones((N, C, H, W)) / (H * W) 
         return dx
